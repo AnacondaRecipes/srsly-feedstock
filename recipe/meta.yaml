@@ -1,6 +1,6 @@
 {% set name = "srsly" %}
-{% set version = "1.0.2" %}
-{% set sha256sum = "59258b81d567df207f8a0a33c4b5fa232afccf1d927c8ce3ba5395bfd64c0ed8" %}
+{% set version = "2.2.0" %}
+{% set sha256sum = "a4a8196590e2623d668ae49349dd7d33f31f5ae56ba8c1a9f4587301f73744c0" %}
 
 package:
   name: {{ name|lower }}
@@ -12,7 +12,9 @@ source:
 
 build:
   number: 0
-  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
+  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  skip: true  # [py2k or py35]
+
 
 requirements:
   build:
@@ -23,10 +25,9 @@ requirements:
     - pip
     - setuptools
     - wheel
-    - msinttypes  # [win and py27]
+    - cython
   run:
     - python
-    - pathlib  # [py27]
 
 test:
   imports:
@@ -34,7 +35,6 @@ test:
     - srsly.tests
   requires:
     - pytest >=4.0.0
-    - unittest2 ==1.1.0  # [py27]
     - pytz
     - mock
     - numpy >=1.15.0
@@ -46,7 +46,7 @@ about:
   license: MIT
   license_family: MIT
   license_file: LICENSE
-  summary: 'Modern high-performance serialization utilities for Python'
+  summary: Modern high-performance serialization utilities for Python
 
   doc_url: https://github.com/explosion/srsly
   dev_url: https://github.com/explosion/srsly
@@ -55,3 +55,4 @@ extra:
   recipe-maintainers:
     - ines
     - honnibal
+    - adrianeboyd

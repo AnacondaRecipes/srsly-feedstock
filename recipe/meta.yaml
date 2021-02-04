@@ -28,6 +28,7 @@ requirements:
     - cython
   run:
     - python
+    - catalogue
 
 test:
   imports:

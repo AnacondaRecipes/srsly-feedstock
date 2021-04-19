@@ -18,8 +18,8 @@ build:
 
 requirements:
   build:
-    - cython >=0.25
-    - python >=3.6
+    - cython >=0.25                               # [build_platform != target_platform]
+    - python >=3.6                                # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:

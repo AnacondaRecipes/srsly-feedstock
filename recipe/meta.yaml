@@ -1,6 +1,6 @@
 {% set name = "srsly" %}
-{% set version = "2.4.1" %}
-{% set sha256sum = "b0f2aec0a329e6e7e742a0a60e99a74968ca29be71f35c5c4de221e328176926" %}
+{% set version = "2.4.3" %}
+{% set sha256sum = "dbe91f6dd4aea9e819493628356dc715bd9c606486297bb7ca5748e6e003841c" %}
 
 package:
   name: {{ name|lower }}
@@ -13,13 +13,11 @@ source:
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . --no-deps -vv
-  skip: true  # [py2k or py35]
+  skip: true  # [py<36]
 
 
 requirements:
   build:
-    - cython                              # [build_platform != target_platform]
-    - python                                # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
@@ -27,7 +25,7 @@ requirements:
     - pip
     - setuptools
     - wheel
-    - cython
+    - cython >=0.25
   run:
     - python
     - catalogue >=2.0.3,<2.1.0
@@ -37,21 +35,23 @@ test:
     - srsly
     - srsly.tests
   requires:
+    - pip
     - pytest 
     - pytz
     - mock 
     - numpy >=1.15.0
   commands:
+    - pip check
     - python -m pytest --tb=native --pyargs {{ name }}
 
 about:
-  home: http://github.com/explosion/srsly
+  home: https://github.com/explosion/srsly
   license: MIT
   license_family: MIT
   license_file: LICENSE
   summary: Modern high-performance serialization utilities for Python
 
-  doc_url: https://github.com/explosion/srsly
+  doc_url: https://github.com/explosion/srsly/blob/master/README.md
   dev_url: https://github.com/explosion/srsly
 
 extra:

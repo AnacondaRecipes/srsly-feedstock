@@ -37,9 +37,9 @@ test:
   requires:
     - pip
     - pytest 
-    - pytz
     - mock 
     - numpy >=1.15.0
+    - psutil
   commands:
     - pip check
     - python -m pytest --tb=native --pyargs {{ name }}

@@ -1,6 +1,6 @@
 {% set name = "srsly" %}
-{% set version = "2.4.3" %}
-{% set sha256sum = "dbe91f6dd4aea9e819493628356dc715bd9c606486297bb7ca5748e6e003841c" %}
+{% set version = "2.4.6" %}
+{% set sha256sum = "47b41f323aba4c9c3311abf60e443c03a9efe9c69f65dc402d173c32f7744a6f" %}
 
 package:
   name: {{ name|lower }}
@@ -37,9 +37,9 @@ test:
   requires:
     - pip
     - pytest 
-    - pytz
     - mock 
     - numpy >=1.15.0
+    - psutil
   commands:
     - pip check
     - python -m pytest --tb=native --pyargs {{ name }}
@@ -50,7 +50,8 @@ about:
   license_family: MIT
   license_file: LICENSE
   summary: Modern high-performance serialization utilities for Python
-
+  description: |
+    Modern high-performance serialization utilities for Python (JSON, MessagePack, Pickle)
   doc_url: https://github.com/explosion/srsly/blob/master/README.md
   dev_url: https://github.com/explosion/srsly
 

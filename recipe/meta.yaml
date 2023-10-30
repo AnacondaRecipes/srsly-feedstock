@@ -1,18 +1,17 @@
 {% set name = "srsly" %}
-{% set version = "2.4.6" %}
-{% set sha256sum = "47b41f323aba4c9c3311abf60e443c03a9efe9c69f65dc402d173c32f7744a6f" %}
+{% set version = "2.4.8" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256sum }}
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/srsly-{{ version }}.tar.gz
+  sha256: b24d95a65009c2447e0b49cda043ac53fecf4f09e358d87a57446458f91b8a91
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   skip: true  # [py<36]
 
 
@@ -25,7 +24,7 @@ requirements:
     - pip
     - setuptools
     - wheel
-    - cython >=0.25
+    - cython >=0.29.1,<0.30.0
   run:
     - python
     - catalogue >=2.0.3,<2.1.0

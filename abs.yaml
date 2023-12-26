@@ -1,1 +1,5 @@
 aggregate_branch: 3.12
+
+channels:
+    # for catalogue 2.0.10:
+    - https://staging.continuum.io/prefect/fs/catalogue-feedstock/pr4/58d7da2

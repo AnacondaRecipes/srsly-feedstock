@@ -18,8 +18,8 @@ build:
     - srsly.read_yaml.v1 = srsly:read_yaml
     - srsly.read_msgpack.v1 = srsly:read_msgpack
   skip: True  # [py<39 or py>313]
-  ignore_run_exports:
-    - libcxx
+  #ignore_run_exports:
+  #  - libcxx
 
 requirements:
   build:
@@ -48,7 +48,7 @@ test:
     - psutil
   commands:
     - pip check
-    - python -m pytest --tb=native --pyargs {{ name }}
+    - python -m pytest -v --tb=native --pyargs {{ name }}
 
 about:
   home: https://github.com/explosion/srsly

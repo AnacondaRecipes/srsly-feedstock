@@ -8,6 +8,8 @@ package:
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: ab1b4bf6cf3e29da23dae0493dd1517fb787075206512351421b89b4fc27c77e
+  patches:
+    - patches/0001-fix-test_extract_class_dict-for-py313.patch
 
 build:
   number: 0
@@ -18,11 +20,11 @@ build:
     - srsly.read_yaml.v1 = srsly:read_yaml
     - srsly.read_msgpack.v1 = srsly:read_msgpack
   skip: True  # [py<39 or py>313]
-  #ignore_run_exports:
-  #  - libcxx
 
 requirements:
   build:
+    - patch  # [not win]
+    - m2-patch  # [win]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
@@ -48,7 +50,7 @@ test:
     - psutil
   commands:
     - pip check
-    - python -m pytest -v --tb=native --pyargs {{ name }}
+    - python -m pytest -vv --tb=native --pyargs {{ name }}
 
 about:
   home: https://github.com/explosion/srsly

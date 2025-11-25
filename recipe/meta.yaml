@@ -14,6 +14,8 @@ source:
     - patches/0003-unvendor-ruamel_yaml.patch
     # The "vendored" msgpack is actually custom code that extends msgpack, not just a copy of upstream msgpack-python. Won`t unvendor.
     - patches/0004-fix-import-for-yaml-test.patch
+    - patches/0005-fix-test_json_api.py-indents.patch
+
 build:
   number: 0
   script: 

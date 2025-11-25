@@ -1,0 +1,27 @@
+From f85fc5dc15d07945336fe7a6713fd59a1ed0a5f4 Mon Sep 17 00:00:00 2001
+From: Andrii Osipov <aosipov@anaconda.com>
+Date: Tue, 25 Nov 2025 04:37:27 -0800
+Subject: [PATCH] unvendor ruamel_yaml
+
+---
+ srsly/_yaml_api.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/srsly/_yaml_api.py b/srsly/_yaml_api.py
+index 36f24aa..e079059 100644
+--- a/srsly/_yaml_api.py
++++ b/srsly/_yaml_api.py
+@@ -2,8 +2,8 @@ from typing import Union, IO, Any
+ from io import StringIO
+ import sys
+ 
+-from .ruamel_yaml import YAML
+-from .ruamel_yaml.representer import RepresenterError
++from ruamel_yaml import YAML
++from ruamel_yaml.representer import RepresenterError
+ from .util import force_path, FilePath, YAMLInput, YAMLOutput
+ 
+ 
+-- 
+2.39.3 (Apple Git-146)
+

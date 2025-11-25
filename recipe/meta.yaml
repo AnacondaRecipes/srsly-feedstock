@@ -13,7 +13,7 @@ source:
     - patches/0002-unvendor-ujson.patch
     - patches/0003-unvendor-ruamel_yaml.patch
     # The "vendored" msgpack is actually custom code that extends msgpack, not just a copy of upstream msgpack-python. Won`t unvendor.
-
+    - patches/0004-fix-import-for-yaml-test.patch
 build:
   number: 0
   script: 
@@ -48,9 +48,9 @@ requirements:
     - ruamel_yaml >=0.16.7
 
 # Won`t run tests for these modules, they are tested in their meta.yaml recipes:
-{% set deselect_tests = " --deselect=tests/cloudpickle" %}
-{% set deselect_tests = deselect_tests + " --deselect=tests/ujson" %}
-{% set deselect_tests = deselect_tests + " --deselect=tests/ruamel_yaml" %}
+{% set tests_to_skip = "tests/cloudpickle" %}
+{% set tests_to_skip = tests_to_skip + " or tests/ujson" %}
+{% set tests_to_skip = tests_to_skip + " or tests/ruamel_yaml" %}
 test:
   imports:
     - srsly
@@ -64,7 +64,7 @@ test:
     - psutil
   commands:
     - pip check
-    - python -m pytest -vv --tb=native --pyargs {{ name }} {{ deselect_tests }}
+    - python -m pytest -vv --tb=native --pyargs {{ name }} -k "not ({{ tests_to_skip }})"
 
 about:
   home: https://github.com/explosion/srsly

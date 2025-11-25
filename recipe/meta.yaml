@@ -23,6 +23,13 @@ build:
   - rm -rf "${SRC_DIR}/srsly/cloudpickle"  # [unix]
   - rm -rf "${SRC_DIR}/srsly/ujson"  # [unix]
   - rm -rf "${SRC_DIR}/srsly/ruamel_yaml"  # [unix]
+  # Won`t run tests for these modules, they are tested in their meta.yaml recipes:
+  - rd /q /s "%SRC_DIR%\srsly\tests\cloudpickle"  # [win]
+  - rd /q /s "%SRC_DIR%\srsly\tests\ujson"  # [win]
+  - rd /q /s "%SRC_DIR%\srsly\tests\ruamel_yaml"  # [win]
+  - rm -rf "${SRC_DIR}/srsly/tests/cloudpickle"  # [unix]
+  - rm -rf "${SRC_DIR}/srsly/tests/ujson"  # [unix]
+  - rm -rf "${SRC_DIR}/srsly/tests/ruamel_yaml"  # [unix]
   - {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   skip: True  # [py<39 or py>315]
 
@@ -47,10 +54,6 @@ requirements:
     # https://github.com/explosion/srsly/blob/release-v2.5.2/srsly/ruamel_yaml/__init__.py#L6
     - ruamel_yaml >=0.16.7
 
-# Won`t run tests for these modules, they are tested in their meta.yaml recipes:
-{% set tests_to_skip = "tests/cloudpickle" %}
-{% set tests_to_skip = tests_to_skip + " or tests/ujson" %}
-{% set tests_to_skip = tests_to_skip + " or tests/ruamel_yaml" %}
 test:
   imports:
     - srsly
@@ -64,7 +67,7 @@ test:
     - psutil
   commands:
     - pip check
-    - python -m pytest -vv --tb=native --pyargs {{ name }} -k "not ({{ tests_to_skip }})"
+    - python -m pytest -vv --tb=native --pyargs {{ name }}
 
 about:
   home: https://github.com/explosion/srsly

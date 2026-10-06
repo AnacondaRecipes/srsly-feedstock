@@ -1,13 +1,13 @@
 {% set name = "srsly" %}
-{% set version = "2.5.3" %}
+{% set version = "2.5.4" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 08f98dbecbff3a31466c4ae7c833131f59d3655a0ad8ac749e6e2c149e2b0680
+  sha256: 7589a35dd6bf1d177803c4ed454098f2f690b3704b80cca337a50be95ba59b3a
   patches:
     - patches/0001-unvendor-cloudpickle.patch
     - patches/0002-unvendor-ujson.patch
@@ -17,22 +17,7 @@ source:
 
 build:
   number: 0
-  script: 
-  - rd /q /s "%SRC_DIR%\srsly\cloudpickle"  # [win]
-  - rd /q /s "%SRC_DIR%\srsly\ujson"  # [win]
-  - rd /q /s "%SRC_DIR%\srsly\ruamel_yaml"  # [win]
-  - rm -rf "${SRC_DIR}/srsly/cloudpickle"  # [unix]
-  - rm -rf "${SRC_DIR}/srsly/ujson"  # [unix]
-  - rm -rf "${SRC_DIR}/srsly/ruamel_yaml"  # [unix]
-  # Won`t run tests for these modules, they are tested in their meta.yaml recipes:
-  - rd /q /s "%SRC_DIR%\srsly\tests\cloudpickle"  # [win]
-  - rd /q /s "%SRC_DIR%\srsly\tests\ujson"  # [win]
-  - rd /q /s "%SRC_DIR%\srsly\tests\ruamel_yaml"  # [win]
-  - rm -rf "${SRC_DIR}/srsly/tests/cloudpickle"  # [unix]
-  - rm -rf "${SRC_DIR}/srsly/tests/ujson"  # [unix]
-  - rm -rf "${SRC_DIR}/srsly/tests/ruamel_yaml"  # [unix]
-  - {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
-  skip: True  # [py<39 or py>315]
+  skip: true  # [py<39 or py>315]
 
 requirements:
   build:
@@ -48,11 +33,11 @@ requirements:
   run:
     - python
     - catalogue >=2.0.3,<2.1.0
-    # https://github.com/explosion/srsly/blob/release-v2.5.3/srsly/cloudpickle/__init__.py#L8
+    # https://github.com/explosion/srsly/blob/release-v2.5.4/srsly/cloudpickle/__init__.py#L6
     - cloudpickle >=3.1.2,<4
-    # https://github.com/explosion/srsly/blob/release-v2.5.3/srsly/ujson/version.h#L39
+    # https://github.com/explosion/srsly/blob/release-v2.5.4/srsly/ujson/version.h#L39
     - ujson >=1.35
-    # https://github.com/explosion/srsly/blob/release-v2.5.3/srsly/ruamel_yaml/__init__.py#L6
+    # https://github.com/explosion/srsly/blob/release-v2.5.4/srsly/ruamel_yaml/__init__.py#L6
     - ruamel.yaml >=0.16.7
 
 test:

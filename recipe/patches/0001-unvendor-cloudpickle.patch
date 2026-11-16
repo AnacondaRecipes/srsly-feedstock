@@ -1,0 +1,24 @@
+From a5861d6cadc885c3764298a90987a82933336b3e Mon Sep 17 00:00:00 2001
+From: Andrii Osipov <aosipov@anaconda.com>
+Date: Tue, 25 Nov 2025 03:40:43 -0800
+Subject: [PATCH] unvendor cloudpickle
+
+---
+ srsly/_pickle_api.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/srsly/_pickle_api.py b/srsly/_pickle_api.py
+index 0e894d9..d8f6d80 100644
+--- a/srsly/_pickle_api.py
++++ b/srsly/_pickle_api.py
+@@ -1,6 +1,6 @@
+ from typing import Optional
+ 
+-from . import cloudpickle
++import cloudpickle
+ from .util import JSONInput, JSONOutput
+ 
+ 
+-- 
+2.39.3 (Apple Git-146)
+

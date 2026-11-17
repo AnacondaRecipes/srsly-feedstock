@@ -1,5 +1,5 @@
 {% set name = "srsly" %}
-{% set version = "3.0.1" %}
+{% set version = "2.5.6" %}
 
 package:
   name: {{ name }}
@@ -7,11 +7,17 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: fd56c1876df09eebd0456175a72d7dd9a40f7fad545f777bcb2c40df8c4b0de9
+  sha256: 8f7cbc9b24bf39ca17ee5cd50d9ebfe9adaa5f00b11457358c551730fe165160
+  patches:
+    - patches/0001-unvendor-cloudpickle.patch
+    - patches/0002-unvendor-ujson.patch
+    # The "vendored" msgpack is actually custom code that extends msgpack, not just a copy of upstream msgpack-python. Won`t unvendor.
+    - patches/0003-fix-test_json_api.py-indents.patch
+    - patches/0004-fix-add-support-legasy-ruamel_yaml-import.patch
 
 build:
   number: 0
-  skip: true  # [py<39]
+  skip: true  # [py<39 or py>316]
 
 requirements:
   build:
@@ -22,13 +28,17 @@ requirements:
     - python
     - pip
     - setuptools
+    - wheel
+    - cython >=3.1
   run:
     - python
+    - catalogue >=2.0.3,<2.1.0
+    # https://github.com/explosion/srsly/blob/release-v2.5.6/srsly/cloudpickle/__init__.py#L6
     - cloudpickle >=3.1.2,<4
-    - msgpack-python >=1.1,<2
-    - ruamel.yaml >=0.18.16,<1
-    - ujson >=5.11,<6
-
+    # https://github.com/explosion/srsly/blob/release-v2.5.6/srsly/ujson/version.h#L39
+    - ujson >=1.35
+    # https://github.com/explosion/srsly/blob/release-v2.5.6/srsly/ruamel_yaml/__init__.py#L6
+    - ruamel.yaml >=0.16.7
 
 test:
   imports:

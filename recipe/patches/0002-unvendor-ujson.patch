@@ -1,0 +1,65 @@
+From f3cc8a94541495d9b25ab4901ebcb8b90ede7b21 Mon Sep 17 00:00:00 2001
+From: Andrii Osipov <aosipov@anaconda.com>
+Date: Tue, 25 Nov 2025 03:43:46 -0800
+Subject: [PATCH] unvendor ujson
+
+---
+ setup.py           | 28 ++++++++++++++--------------
+ srsly/_json_api.py |  2 +-
+ 2 files changed, 15 insertions(+), 15 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index 7fd4252..a0895a8 100644
+--- a/setup.py
++++ b/setup.py
+@@ -109,20 +109,20 @@ def setup_package():
+                     define_macros=macros,
+                 )
+             )
+-        ext_modules.append(
+-            Extension(
+-                "srsly.ujson.ujson",
+-                sources=[
+-                    "./srsly/ujson/ujson.c",
+-                    "./srsly/ujson/objToJSON.c",
+-                    "./srsly/ujson/JSONtoObj.c",
+-                    "./srsly/ujson/lib/ultrajsonenc.c",
+-                    "./srsly/ujson/lib/ultrajsondec.c",
+-                ],
+-                include_dirs=["./srsly/ujson", "./srsly/ujson/lib"],
+-                extra_compile_args=["-D_GNU_SOURCE"],
+-            )
+-        )
++        #ext_modules.append(
++        #    Extension(
++        #        "srsly.ujson.ujson",
++        #        sources=[
++        #            "./srsly/ujson/ujson.c",
++        #            "./srsly/ujson/objToJSON.c",
++        #            "./srsly/ujson/JSONtoObj.c",
++        #            "./srsly/ujson/lib/ultrajsonenc.c",
++        #            "./srsly/ujson/lib/ultrajsondec.c",
++        #        ],
++        #        include_dirs=["./srsly/ujson", "./srsly/ujson/lib"],
++        #        extra_compile_args=["-D_GNU_SOURCE"],
++        #    )
++        #)
+         print("Cythonizing sources")
+         ext_modules = cythonize(
+             ext_modules, compiler_directives=COMPILER_DIRECTIVES, language_level=2
+diff --git a/srsly/_json_api.py b/srsly/_json_api.py
+index 24d25fd..6c48c1b 100644
+--- a/srsly/_json_api.py
++++ b/srsly/_json_api.py
+@@ -3,7 +3,7 @@ import sys
+ import json as _builtin_json
+ import gzip
+ 
+-from . import ujson
++import ujson
+ from .util import force_path, force_string, FilePath, JSONInput, JSONOutput
+ 
+ 
+-- 
+2.39.3 (Apple Git-146)
+
